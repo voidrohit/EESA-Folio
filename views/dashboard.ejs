@@ -86,7 +86,6 @@
     </section>
       <div class="card-wrapper">
         <% for(var i=0; i<itemsWeb.length; i++) { %>
-          <% console.log(itemsWeb[i].username, authuser) %>
           <% if(itemsWeb[i].username == authuser) { %>
             <form action="/about/<%=itemsWeb[i].username%>" style="display: <%=style2%>" method="get">
               <button type="submit">
