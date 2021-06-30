@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EESA folio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Noto+Sans:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+  <body>
+    <div class="titlebar">
+      <a href="#header" class="toggle"></a>
+      <span class="title">
+        <a href="#"><%=username%></a>
+      </span>
+      <i class="material-icons">
+        <svg width="10vh" height="10vh" xmlns="http://www.w3.org/2000/svg">
+          <g>
+           <title>background</title>
+           <rect fill="#1f4188" id="canvas_background" height="59.6" width="59.6" y="-1" x="-1"/>
+          </g>
+          <g>
+           <title>Layer 1</title>
+           <path stroke="null" fill="#ffffff" id="svg_1" d="m15.409902,22.766538l33.5153,0c1.541704,0 2.792942,-1.251238 2.792942,-2.792942s-1.251238,-2.792942 -2.792942,-2.792942l-33.5153,0c-1.541704,0 -2.792942,1.251238 -2.792942,2.792942s1.251238,2.792942 2.792942,2.792942zm33.5153,5.585883l-33.5153,0c-1.541704,0 -2.792942,1.251238 -2.792942,2.792942s1.251238,2.792942 2.792942,2.792942l33.5153,0c1.541704,0 2.792942,-1.251238 2.792942,-2.792942s-1.251238,-2.792942 -2.792942,-2.792942zm0,11.171767l-33.5153,0c-1.541704,0 -2.792942,1.251238 -2.792942,2.792942s1.251238,2.792942 2.792942,2.792942l33.5153,0c1.541704,0 2.792942,-1.251238 2.792942,-2.792942s-1.251238,-2.792942 -2.792942,-2.792942z"/>
+          </g>
+         </svg>
+      </i>
+    </div>
+    <div id="sidebar">
+      <div class="header">
+            <img src="<%=src%>" alt="/images/avatar.jpg" class="image-avatar">
+            <form class="inputfile" action="/dashboard/<%=pass%>/<%=username%>" method="post" enctype="multipart/form-data">
+              <input style="display: none;" type="text" id="pass" name="pass" value="<%=pass%>">
+              <input style="display: none;" type="text" id="username" name="username" value="<%=username%>">
+              <input style="display: <%=style3%>" type="file" id="image" name="file" accept="image/*"/>
+              <button style="display: <%=style3%>" type="submit">Submit</button>
+            </form>
+            <h1 class="programmer">EESA Folio</h1>
+            <!-- <h1 class="programmer">Folio</h1> -->
+            <h3 class="italics">For the students, by the Students</h3>
+            <p>Made with
+              <span class="love">♥</span>
+               by <a href="http://voidrohit.herokuapp.com/">EESA</a>
+            </p>
+            <section class="columns">
+              <ul>
+                <li>
+                  <a href="#web">
+                    <p>WEB</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#android"><p>ANDROID</p></a>
+                </li>
+                <li>
+                    <a href="#android"><p>CORE</p></a>
+                  </li>
+              </ul>
+            </section>
+            <section class="connect">
+                <ul>
+                    <li>
+                        <form action="/sign" method="get">
+                            <button style="display: <%=style%>" >SignIn/SignUp</button>
+                        </form>
+                    </li>
+                    <li>
+                      <form action="/logout" method="post">
+                        <button style="display: <%=style3%>" >LogOut</button>
+                      </form>
+                    </li>
+                </ul>
+            </section>
+      </div>
+    </div>
+    <section>
+      <h1 class="heading">
+        2k19 batch
+      </h1>
+      <h2 class="subheading">
+        Electrical Engineering Student's Assosiaction
+      </h2>
+      <h3 id="web">WEB</h3>
+    </section>
+      <div class="card-wrapper">
+        <% for(var i=0; i<itemsWeb.length; i++) { %>
+          <% console.log(itemsWeb[i].username, authuser) %>
+          <% if(itemsWeb[i].username == authuser) { %>
+            <form action="/about/<%=itemsWeb[i].username%>" style="display: <%=style2%>" method="get">
+              <button type="submit">
+                <div class="card">
+                  <img src="data:image/<%=itemsWeb[i].img.contentType%>;base64,<%=itemsWeb[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+                  <h1 class="tech"><%= itemsWeb[i].name %></h1>
+                </div>
+              </button>
+            </form>
+          <% } else { %>
+          <form action="/<%=itemsWeb[i].username%>" style="display: <%=style2%>"  method="get">
+            <button type="submit">
+              <div class="card">
+                <img src="data:image/<%=itemsWeb[i].img.contentType%>;base64,<%=itemsWeb[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+                <h1 class="tech"><%= itemsWeb[i].name %></h1>
+                
+              </div>
+            </button>
+          </form>
+        <% } %>
+      <% } %>
+      </div>
+
+    <h3 id="android">ANDROID</h3>
+    <div class="card-wrapper">
+      <% for(var i=0; i<itemsAndroid.length; i++) { %>
+        <% if(itemsAndroid[i].username == authuser) { %>
+          <form action="/about/<%=itemsAndroid[i].username%>" style="display: <%=style2%>" method="get">
+            <button type="submit">
+              <div class="card">
+                <img src="data:image/<%=itemsAndroid[i].img.contentType%>;base64,<%=itemsAndroid[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+                <h1 class="tech"><%= itemsAndroid[i].name %></h1>
+                
+              </div>
+            </button>
+          </form>
+          <% } else { %>
+            <form action="/<%=itemsAndroid[i].username%>" style="display: <%=style2%>" method="get">
+              <button type="submit">
+                <div class="card">
+                  <img src="data:image/<%=itemsAndroid[i].img.contentType%>;base64,<%=itemsAndroid[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+                  <h1 class="tech"><%= itemsAndroid[i].name %></h1>
+                </div>
+              </button>
+            </form>
+          <% } %>
+      <% } %>
+    </div>
+    <h3 id="core">CORE</h3>
+    <div class="card-wrapper">
+      <% for(var i=0; i<itemsCore.length; i++) { %>
+        <% if(itemsCore[i].username == authuser) { %>
+        <form action="/about/<%=itemsCore[i].username%>" style="display: <%=style2%>" method="get">
+          <button type="submit">
+            <div class="card">
+              <img src="data:image/<%=itemsCore[i].img.contentType%>;base64,<%=itemsCore[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+              <h1 class="tech"><%= itemsCore[i].name %></h1>
+              
+            </div>
+          </button>
+        </form>
+        <% } else { %>
+        <form action="/<%=itemsCore[i].username%>" style="display: <%=style%>" method="get">
+          <button type="submit">
+            <div class="card">
+              <img src="data:image/<%=itemsCore[i].img.contentType%>;base64,<%=itemsCore[i].img.data.toString('base64')%>" alt="/images/avatar.jpg" class="pic1">
+              <h1 class="tech"><%= itemsCore[i].name %></h1>
+            </div>
+          </button>
+        </form>
+        <% } %>
+      <% } %>
+    </div>
+    <script src="/js/dashboard.js">
+    </script>
+  </body>
+</html>
