@@ -17,7 +17,7 @@ var path = require('path');
 var multer = require('multer')
 
 const store = new MongodbSession({
-    uri: process.env.MONGODB,
+    uri: "mongodb+srv://voidrohit:Rks&18158920@cluster0.oiqtt.mongodb.net/EESAFolio?retryWrites=true&w=majority",
     collestion: 'sessions'
 })
 
@@ -126,8 +126,8 @@ app.post('/users', (req, res) => {
                             let transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
-                                    user: process.env.EMAIL ,    // Sender email
-                                    pass: process.env.PASSWORD  // Sender password
+                                    user: "eesanitpatna@gmail.com" ,    // Sender email
+                                    pass: "eesa&18158920"  // Sender password
                                 }
                             });
                             
@@ -135,7 +135,7 @@ app.post('/users', (req, res) => {
                                 from: 'eesanitpatna@gmail.com',
                                 to: email,
                                 subject: 'EESA Verification',
-                                text: `Please click on the link provided to activate the account http://localhost:3030/users/${email}/${validation_code}/${id}`
+                                text: `Please click on the link provided to activate the account https://eesafolio.herokuapp.com/users/${email}/${validation_code}/${id}`
                                 /////// Change text link while deploying
                             };
                             
@@ -217,7 +217,7 @@ app.post('/reset', (req, res) => {
             from: 'kabirsinghnitp@gmail.com',
             to: email,
             subject: 'Test',
-            text: `Please click on the link provided to reset password http://localhost:3030/reset/${email}/${validation_code}/${id}`
+            text: `Please click on the link provided to reset password https://eesafolio.herokuapp.com/reset/${email}/${validation_code}/${id}`
             /////// Change text link while deploying
         };
         
