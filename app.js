@@ -324,14 +324,17 @@ app.post("/dashboard/:pass/:username", upload.single('file'), isAuth, (req, res)
         if(count>0) {
             imgModel.find({username: username}).then((getId) => {
                 var id = getId[0]['_id']
-                imgModel.findByIdAndUpdate(id, {img: {
-                    data: fs.readFileSync(path.join(__dirname + '/Public/uploads/' + file)),
-                    contentType: 'image/png',
-                }}, (err, result) => {
-                    res.redirect(`/dashboard/${shausername}/${username}`)
+                if(getId[0]["img"].data["buffer"].byteLength <= 10000) {
+                    imgModel.findByIdAndUpdate(id, {img: {
+                        data: fs.readFileSync(path.join(__dirname + '/Public/uploads/' + file)),
+                        contentType: 'image/png',
+                        }}, (err, result) => {
+                        res.redirect(`/dashboard/${shausername}/${username}`)
                 })
+                } else {
+                    res.render("message", {message: "Upload file less than 100kb"});
+                }
             })
-            
         } else {
             image.save(function (err, item){
                 if (err) {
