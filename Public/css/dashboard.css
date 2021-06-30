@@ -254,12 +254,12 @@
     bottom: 0;
   }
   .connect ul {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     display: flex;
     justify-content:space-between;
   }
   .connect ul li{
-    margin-left: 1rem;
+    margin-left: 5rem;
   }
   .connect button {
     background-color: orangered;
