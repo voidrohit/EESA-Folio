@@ -324,7 +324,7 @@ app.post("/dashboard/:pass/:username", upload.single('file'), isAuth, (req, res)
         if(count>0) {
             imgModel.find({username: username}).then((getId) => {
                 var id = getId[0]['_id']
-                if(getId[0]["img"].data["buffer"].byteLength <= 10000) {
+                if(getId[0]["img"].data["buffer"].byteLength <= 100000) {
                     imgModel.findByIdAndUpdate(id, {img: {
                         data: fs.readFileSync(path.join(__dirname + '/Public/uploads/' + file)),
                         contentType: 'image/png',
