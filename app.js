@@ -163,16 +163,6 @@ app.post('/users', (req, res) => {
     }
     
 })
-
-app.get('/users', (req, res) => {
-    User.find({}).then((users) => {
-        res.send(users)
-    }).catch((e) => {
-        res.send(400).send(e)
-    })
-})
-
-
 app.get('/users/:email/:code/:id', (req, res) => {
     const email = req.params.email
     const validation_code = req.params.code
@@ -336,39 +326,24 @@ app.post("/dashboard/:pass/:username", upload.single('file'), isAuth, (req, res)
                 }
             })
         } else {
-            image.save(function (err, item){
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(item['img']);
-                    res.redirect(`/dashboard/${shausername}/${username}`)
-                }
-            });
+            if(image["img"].data["buffer"].byteLength <= 100000){
+                image.save(function (err, item){
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(item['img']);
+                        res.redirect(`/dashboard/${shausername}/${username}`)
+                    }
+                });
+            } else {
+                res.render("message", {message: "Upload file less than 100kb"});
+            }
         }
         })
     })
     })
 })
-app.post('/', upload.single('file'), (req, res, next) => {
- 
-    var obj = {
-        name: req.body.name,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
-    imgModel.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect('/');
-        }
-    });
-});
-
 app.get("/about/:username", isAuth, (req, res) => {
     username = req.params.username
     const userquery = About.find({username: req.params.username})
