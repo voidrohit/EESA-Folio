@@ -147,6 +147,11 @@
     border: 0.1px;
     padding: 5px;
   }
+.card img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
   .card:hover{
     background-color: rgba(31,65,136,01);
     border-radius: 5px;
